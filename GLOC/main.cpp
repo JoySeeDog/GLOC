@@ -7,6 +7,13 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
+
+/**
+ 大致就是：创建窗口，创建context，定义顶点，定义索引，创建VBO，创建VAO，创建IBO，加载顶点着色器片段着色器，编译着色器，绑定VAO，复制VBO，复制IBO，设置VAO，解绑VAO，循环：清除屏幕，使用着色器，绑定VAO，绘制顶点，释放VAO，交换双缓冲，处理事件；结束程序。
+ 这过程好烦琐啊！！
+ 
+ **/
+
 //function peototype
 //按键回调。在用户有键盘交互时回调
 
@@ -17,11 +24,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 //顶点着色器
 const GLchar* vertexShaderSource = "#version 330 core \n"
- "layout (location = 0) in vec3 position;\n"
- "void main()\n"
- "{\n"
- "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
- "}\n";
+"layout (location = 0) in vec3 position;\n"
+"void main()\n"
+"{\n"
+"gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
+"}\n";
 
 //片段着色器
 
@@ -36,12 +43,12 @@ const GLchar* fragmentShaderSource = "#version 330 core\n"
 
 
 int main() {
-
-
+    
+    
     glfwInit();//初始化一个窗口
     
     //设置窗口的一些值
-
+    
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //版本号
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     
@@ -70,6 +77,11 @@ int main() {
     
     glewExperimental = GL_TRUE; //true的话使用可以更多的使用新的技术。false的话会在使用核心模式时出问题
     
+    //在glew使用之前需要进行初始化，否则会出现BAD_ACCESS错误。
+    //https://stackoverflow.com/questions/12329082/glcreateshader-is-crashing
+    if(glewInit() != GLEW_OK)
+        throw std::runtime_error("glewInit failed");
+    
     
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -84,6 +96,8 @@ int main() {
     ///把着色器源码附加到着色器对象上，然后编译
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
+    
+    
     
     ///检查编译有没有成功，并查看错误的原因
     
@@ -102,7 +116,7 @@ int main() {
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
     
-
+    
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
     {
@@ -136,11 +150,16 @@ int main() {
     glDeleteShader(fragmentShader);
     
     
-    //顶点输入
     GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
+        0.5f, 0.5f, 0.0f,   // 右上角
+        0.5f, -0.5f, 0.0f,  // 右下角
+        -0.5f, -0.5f, 0.0f, // 左下角
+        -0.5f, 0.5f, 0.0f   // 左上角
+    };
+    
+    GLuint indices[] = { // 注意索引从0开始!
+        0, 1, 3, // 第一个三角形
+        1, 2, 3  // 第二个三角形
     };
     
     GLuint VBO;
@@ -167,6 +186,45 @@ int main() {
     glEnableVertexAttribArray(0);
     
     
+    //顶点数组对象
+    GLuint VAO;
+    glGenVertexArrays(1, &VAO);
+    
+    glBindVertexArray(VAO);
+    
+    //把顶点数组复制到缓冲中供OpenGL使用
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    //设置顶点属性指针
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid *)0);
+    glEnableVertexAttribArray(0);
+    
+    //解绑VAO
+    glBindVertexArray(0);
+    
+    
+    
+    //索引缓冲对象
+    GLuint EBO;
+    glGenBuffers(1, &EBO);
+    
+    // 1. 绑定顶点数组对象
+    glBindVertexArray(VAO);
+    // 2. 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    // 3. 复制我们的索引数组到一个索引缓冲中，供OpenGL使用
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    
+    // 3. 设定顶点属性指针
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+    // 4. 解绑VAO（不是EBO！）
+    glBindVertexArray(0);
+
     
     
     
@@ -174,7 +232,14 @@ int main() {
     
     
     
-     //函数注册需要放在循环开始之前
+    
+    
+    
+    
+    
+    
+    
+    //函数注册需要放在循环开始之前
     glfwSetKeyCallback(window, key_callback);
     
     
@@ -188,13 +253,28 @@ int main() {
         //渲染(Rendering)操作放到游戏循环中，因为我们想让这些渲染指令在每次游戏循环迭代的时候都能被执行。
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
+        
+        
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式(Wireframe Mode)
+//        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//默认模式
+        
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+        
+        
+        
         
         
         
         glfwSwapBuffers(window);
     }
     
+    
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
     
     glfwTerminate(); //释放glfw分配的内存
     
@@ -213,5 +293,5 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         
     }
     
-
+    
 }
