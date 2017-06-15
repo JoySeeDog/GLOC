@@ -1,0 +1,99 @@
+#include <iostream>
+
+// GLEW
+#define GLEW_STATIC
+#include <GL/glew.h>
+
+// GLFW
+#include <GLFW/glfw3.h>
+
+//function peototype
+//按键回调。在用户有键盘交互时回调
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+
+int main() {
+
+
+glfwInit();//初始化一个窗口
+
+//设置窗口的一些值
+
+glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //版本号
+glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //使用核心模式
+glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); //使用旧函数会报错
+
+glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //mac需要加这个
+
+
+
+GLFWwindow *window  = glfwCreateWindow(800, 600, "first opengl", nullptr, nullptr);//创建窗口
+
+if (window == nullptr ) {
+
+std::cout << "Failed to create Window" <<std::endl;
+glfwTerminate();
+
+return -1;
+
+}
+
+glfwMakeContextCurrent(window); //设置当前窗口上下文设置为当前线程的主上下文
+
+
+//使用OpenGL的函数之前需要初始化GLEW。GLEW用于管理OpenGL的函数指针
+
+glewExperimental = GL_TRUE; //true的话使用可以更多的使用新的技术。false的话会在使用核心模式时出问题
+
+
+int width, height;
+glfwGetFramebufferSize(window, &width, &height);
+
+glViewport(0, 0, width, height);
+
+
+
+//函数注册需要放在循环开始之前
+glfwSetKeyCallback(window, key_callback);
+
+
+//Game LOOP 一直循环，直到用户明确退出
+
+while (!glfwWindowShouldClose(window)) {//每次检查是否要退出
+
+glfwPollEvents(); //检查有没有触发什么事件
+
+
+//渲染(Rendering)操作放到游戏循环中，因为我们想让这些渲染指令在每次游戏循环迭代的时候都能被执行。
+glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+glClear(GL_COLOR_BUFFER_BIT);
+
+
+
+
+glfwSwapBuffers(window);
+}
+
+
+glfwTerminate(); //释放glfw分配的内存
+
+
+return 0;
+}
+
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
+
+//当用户按下ESC键，设置windowshouldclose为true
+
+if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+
+glfwSetWindowShouldClose(window, GL_TRUE);
+
+}
+
+
+}

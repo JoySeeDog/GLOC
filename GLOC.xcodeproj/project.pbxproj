@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CF705F921EEE6EA6005A001C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF705F911EEE6EA6005A001C /* AppDelegate.m */; };
-		CF705F951EEE6EA6005A001C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF705F941EEE6EA6005A001C /* main.m */; };
-		CF705F981EEE6EA6005A001C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF705F971EEE6EA6005A001C /* ViewController.m */; };
-		CF705F9A1EEE6EA6005A001C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF705F991EEE6EA6005A001C /* Assets.xcassets */; };
-		CF705F9D1EEE6EA6005A001C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF705F9B1EEE6EA6005A001C /* Main.storyboard */; };
+		CF705F951EEE6EA6005A001C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF705F941EEE6EA6005A001C /* main.cpp */; };
+		CF705FA61EEE6F16005A001C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF705FA51EEE6F16005A001C /* OpenGL.framework */; };
+		CF705FA81EEE6F68005A001C /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CF705FA71EEE6F68005A001C /* libGLEW.2.0.0.dylib */; };
+		CF705FAA1EEE6F7D005A001C /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CF705FA91EEE6F7D005A001C /* libglfw.3.2.dylib */; };
+		CF705FAE1EEE7233005A001C /* libglfw.3.2.dylib in Resources */ = {isa = PBXBuildFile; fileRef = CF705FA91EEE6F7D005A001C /* libglfw.3.2.dylib */; };
+		CF705FAF1EEE7233005A001C /* libGLEW.2.0.0.dylib in Resources */ = {isa = PBXBuildFile; fileRef = CF705FA71EEE6F68005A001C /* libGLEW.2.0.0.dylib */; };
+		CF705FB41EEE88E4005A001C /* OpenGL01-显示基本窗口 in Resources */ = {isa = PBXBuildFile; fileRef = CF705FB31EEE88E4005A001C /* OpenGL01-显示基本窗口 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CF705F8D1EEE6EA6005A001C /* GLOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF705F901EEE6EA6005A001C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		CF705F911EEE6EA6005A001C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CF705F941EEE6EA6005A001C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CF705F961EEE6EA6005A001C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CF705F971EEE6EA6005A001C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		CF705F991EEE6EA6005A001C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CF705F9C1EEE6EA6005A001C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CF705F941EEE6EA6005A001C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CF705F9E1EEE6EA6005A001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF705FA51EEE6F16005A001C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		CF705FA71EEE6F68005A001C /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
+		CF705FA91EEE6F7D005A001C /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
+		CF705FB31EEE88E4005A001C /* OpenGL01-显示基本窗口 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "OpenGL01-显示基本窗口"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +31,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF705FAA1EEE6F7D005A001C /* libglfw.3.2.dylib in Frameworks */,
+				CF705FA81EEE6F68005A001C /* libGLEW.2.0.0.dylib in Frameworks */,
+				CF705FA61EEE6F16005A001C /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,7 @@
 			children = (
 				CF705F8F1EEE6EA6005A001C /* GLOC */,
 				CF705F8E1EEE6EA6005A001C /* Products */,
+				CF705FA41EEE6F16005A001C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +60,7 @@
 		CF705F8F1EEE6EA6005A001C /* GLOC */ = {
 			isa = PBXGroup;
 			children = (
-				CF705F901EEE6EA6005A001C /* AppDelegate.h */,
-				CF705F911EEE6EA6005A001C /* AppDelegate.m */,
-				CF705F961EEE6EA6005A001C /* ViewController.h */,
-				CF705F971EEE6EA6005A001C /* ViewController.m */,
-				CF705F991EEE6EA6005A001C /* Assets.xcassets */,
-				CF705F9B1EEE6EA6005A001C /* Main.storyboard */,
+				CF705FB21EEE88E4005A001C /* Code */,
 				CF705F9E1EEE6EA6005A001C /* Info.plist */,
 				CF705F931EEE6EA6005A001C /* Supporting Files */,
 			);
@@ -71,10 +70,28 @@
 		CF705F931EEE6EA6005A001C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CF705F941EEE6EA6005A001C /* main.m */,
+				CF705F941EEE6EA6005A001C /* main.cpp */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		CF705FA41EEE6F16005A001C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF705FA91EEE6F7D005A001C /* libglfw.3.2.dylib */,
+				CF705FA71EEE6F68005A001C /* libGLEW.2.0.0.dylib */,
+				CF705FA51EEE6F16005A001C /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF705FB21EEE88E4005A001C /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				CF705FB31EEE88E4005A001C /* OpenGL01-显示基本窗口 */,
+			);
+			path = Code;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -135,8 +152,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF705F9A1EEE6EA6005A001C /* Assets.xcassets in Resources */,
-				CF705F9D1EEE6EA6005A001C /* Main.storyboard in Resources */,
+				CF705FAE1EEE7233005A001C /* libglfw.3.2.dylib in Resources */,
+				CF705FAF1EEE7233005A001C /* libGLEW.2.0.0.dylib in Resources */,
+				CF705FB41EEE88E4005A001C /* OpenGL01-显示基本窗口 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,24 +165,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF705F981EEE6EA6005A001C /* ViewController.m in Sources */,
-				CF705F951EEE6EA6005A001C /* main.m in Sources */,
-				CF705F921EEE6EA6005A001C /* AppDelegate.m in Sources */,
+				CF705F951EEE6EA6005A001C /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		CF705F9B1EEE6EA6005A001C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CF705F9C1EEE6EA6005A001C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CF705F9F1EEE6EA6005A001C /* Debug */ = {
@@ -262,8 +267,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GD9P546353;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = GLOC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/glew/2.0.0/lib,
+					/usr/local/Cellar/glfw/3.2.1/lib,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = JoySeeDog.GLOC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -275,8 +286,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = GD9P546353;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = GLOC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/glew/2.0.0/lib,
+					/usr/local/Cellar/glfw/3.2.1/lib,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = JoySeeDog.GLOC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -301,6 +318,7 @@
 				CF705FA31EEE6EA6005A001C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
