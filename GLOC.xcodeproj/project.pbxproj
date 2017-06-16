@@ -14,6 +14,8 @@
 		CF705FAE1EEE7233005A001C /* libglfw.3.2.dylib in Resources */ = {isa = PBXBuildFile; fileRef = CF705FA91EEE6F7D005A001C /* libglfw.3.2.dylib */; };
 		CF705FAF1EEE7233005A001C /* libGLEW.2.0.0.dylib in Resources */ = {isa = PBXBuildFile; fileRef = CF705FA71EEE6F68005A001C /* libGLEW.2.0.0.dylib */; };
 		CF705FB41EEE88E4005A001C /* OpenGL01-显示基本窗口 in Resources */ = {isa = PBXBuildFile; fileRef = CF705FB31EEE88E4005A001C /* OpenGL01-显示基本窗口 */; };
+		CF705FB61EF3D63E005A001C /* OpenGL04-uniform基础 in Resources */ = {isa = PBXBuildFile; fileRef = CF705FB51EF3D63E005A001C /* OpenGL04-uniform基础 */; };
+		CF705FB81EF3DC98005A001C /* OpenGL04-uniform多个属性 in Resources */ = {isa = PBXBuildFile; fileRef = CF705FB71EF3DC98005A001C /* OpenGL04-uniform多个属性 */; };
 		F562051E1EF2F5E400888AAD /* OpenGL02-顶点数组对象 in Resources */ = {isa = PBXBuildFile; fileRef = F562051D1EF2F5E400888AAD /* OpenGL02-顶点数组对象 */; };
 		F56205221EF2FA7500888AAD /* OpenGL03-索引缓冲对象 in Resources */ = {isa = PBXBuildFile; fileRef = F56205211EF2FA7500888AAD /* OpenGL03-索引缓冲对象 */; };
 /* End PBXBuildFile section */
@@ -26,6 +28,8 @@
 		CF705FA71EEE6F68005A001C /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../usr/local/Cellar/glew/2.0.0/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
 		CF705FA91EEE6F7D005A001C /* libglfw.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.2.dylib; path = ../../../../usr/local/Cellar/glfw/3.2.1/lib/libglfw.3.2.dylib; sourceTree = "<group>"; };
 		CF705FB31EEE88E4005A001C /* OpenGL01-显示基本窗口 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "OpenGL01-显示基本窗口"; sourceTree = "<group>"; };
+		CF705FB51EF3D63E005A001C /* OpenGL04-uniform基础 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "OpenGL04-uniform基础"; sourceTree = "<group>"; };
+		CF705FB71EF3DC98005A001C /* OpenGL04-uniform多个属性 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "OpenGL04-uniform多个属性"; sourceTree = "<group>"; };
 		F562051D1EF2F5E400888AAD /* OpenGL02-顶点数组对象 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "OpenGL02-顶点数组对象"; sourceTree = "<group>"; };
 		F56205211EF2FA7500888AAD /* OpenGL03-索引缓冲对象 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "OpenGL03-索引缓冲对象"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +99,8 @@
 				CF705FB31EEE88E4005A001C /* OpenGL01-显示基本窗口 */,
 				F562051D1EF2F5E400888AAD /* OpenGL02-顶点数组对象 */,
 				F56205211EF2FA7500888AAD /* OpenGL03-索引缓冲对象 */,
+				CF705FB51EF3D63E005A001C /* OpenGL04-uniform基础 */,
+				CF705FB71EF3DC98005A001C /* OpenGL04-uniform多个属性 */,
 			);
 			path = Code;
 			sourceTree = SOURCE_ROOT;
@@ -160,7 +166,9 @@
 			files = (
 				CF705FAE1EEE7233005A001C /* libglfw.3.2.dylib in Resources */,
 				F562051E1EF2F5E400888AAD /* OpenGL02-顶点数组对象 in Resources */,
+				CF705FB61EF3D63E005A001C /* OpenGL04-uniform基础 in Resources */,
 				CF705FAF1EEE7233005A001C /* libGLEW.2.0.0.dylib in Resources */,
+				CF705FB81EF3DC98005A001C /* OpenGL04-uniform多个属性 in Resources */,
 				F56205221EF2FA7500888AAD /* OpenGL03-索引缓冲对象 in Resources */,
 				CF705FB41EEE88E4005A001C /* OpenGL01-显示基本窗口 in Resources */,
 			);

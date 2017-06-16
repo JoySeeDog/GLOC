@@ -4,15 +4,19 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include <cmath>
+
 // GLFW
 #include <GLFW/glfw3.h>
 
 
 /**
- 大致就是：创建窗口，创建context，定义顶点，定义索引，创建VBO，创建VAO，创建IBO，加载顶点着色器片段着色器，编译着色器，绑定VAO，复制VBO，复制IBO，设置VAO，解绑VAO，循环：清除屏幕，使用着色器，绑定VAO，绘制顶点，释放VAO，交换双缓冲，处理事件；结束程序。
- 这过程好烦琐啊！！
+ 1、艺术家和程序员更喜欢使用纹理(Texture)。纹理是一个2D图片（甚至也有1D和3D的纹理），它可以用来添加物体的细节；你可以想象纹理是一张绘有砖块的纸，无缝折叠贴合到你的3D的房子上，这样你的房子看起来就像有砖墙外表了。因为我们可以在一张图片上插入非常多的细节，这样就可以让物体非常精细而不用指定额外的顶点 
+ 
  
  **/
+
+
 
 //function peototype
 //按键回调。在用户有键盘交互时回调
@@ -22,21 +26,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 //着色器  Shaders
 
-//顶点着色器
-const GLchar* vertexShaderSource = "#version 330 core \n"
+// Shaders
+// Shaders
+const GLchar* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 position;\n"
+"layout (location = 1) in vec3 color;\n"
+"out vec3 ourColor;\n"
 "void main()\n"
 "{\n"
-"gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
-"}\n";
-
-//片段着色器
+"gl_Position = vec4(position, 1.0);\n"
+"ourColor = color;\n"
+"}\0";
 
 const GLchar* fragmentShaderSource = "#version 330 core\n"
+"in vec3 ourColor;\n"
 "out vec4 color;\n"
 "void main()\n"
 "{\n"
-"color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+"color = vec4(ourColor, 1.0f);\n"
 "}\n\0";
 
 
@@ -150,26 +157,26 @@ int main() {
     glDeleteShader(fragmentShader);
     
     
+    //顶点输入
     GLfloat vertices[] = {
-        0.5f, 0.5f, 0.0f,   // 右上角
-        0.5f, -0.5f, 0.0f,  // 右下角
-        -0.5f, -0.5f, 0.0f, // 左下角
-        -0.5f, 0.5f, 0.0f   // 左上角
-    };
-    
-    GLuint indices[] = { // 注意索引从0开始!
-        0, 1, 3, // 第一个三角形
-        1, 2, 3  // 第二个三角形
+        // 位置              // 颜色
+        0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
+        0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
     };
     
     GLuint VBO;
     glGenBuffers(1, &VBO);
     
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    
     //把之前定义的顶点数据复制到缓冲的内存中
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
+    
+    //顶点数组对象
+    GLuint VAO;
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
     
     //链接顶点属性
     /*
@@ -182,50 +189,17 @@ int main() {
      最后一个参数的类型是GLvoid*，所以需要我们进行这个奇怪的强制类型转换。它表示位置数据在缓冲中起始位置的偏移量(Offset)。由于位置数据在数组的开头，所以这里是0。
      
      */
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     
-    
-    //顶点数组对象
-    GLuint VAO;
-    glGenVertexArrays(1, &VAO);
-    
-    glBindVertexArray(VAO);
-    
-    //把顶点数组复制到缓冲中供OpenGL使用
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
     //设置顶点属性指针
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid *)0);
-    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
+    
     
     //解绑VAO
     glBindVertexArray(0);
-    
-    
-    
-    //索引缓冲对象
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-    
-    // 1. 绑定顶点数组对象
-    glBindVertexArray(VAO);
-    // 2. 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
-    // 3. 复制我们的索引数组到一个索引缓冲中，供OpenGL使用
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    
-    // 3. 设定顶点属性指针
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    // 4. 解绑VAO（不是EBO！）
-    glBindVertexArray(0);
-
-    
     
     
     
@@ -255,13 +229,12 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
         
         
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式(Wireframe Mode)
-//        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//默认模式
         
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
+        
         
         
         
@@ -271,10 +244,6 @@ int main() {
         glfwSwapBuffers(window);
     }
     
-    
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
     
     glfwTerminate(); //释放glfw分配的内存
     
